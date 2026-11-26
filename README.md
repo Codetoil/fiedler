@@ -89,7 +89,7 @@ a headless server, runs every GameTest and exits non-zero if any test fails.
 
 CI (`.github/workflows/test.yml`) runs both on every push. It then launches a real NeoForge 26.3 client with the built jar
 through [MC-Runtime-Test](https://github.com/headlesshq/mc-runtime-test), which uses HeadlessMc. The client joins a
-singleplayer world and runs every `fiedler:*` GameTest there.
+singleplayer world and runs every `fiedler:*` GameTest there (18 at present).
 
 **Client tests** (`fiedler.client.FiedlerClientGameTests`) drive the real local player through the client→server packet
 path and check both what the server did and what the client shows:
@@ -101,6 +101,13 @@ path and check both what the server did and what the client shows:
 | `client_brush_moss` | aims at mossy cobblestone and holds the use key with a brush | the block is restored on both sides and a moss carpet drops |
 | `client_graph_command` | types `/fiedler graph` and `/fiedler connections` | the reports arrive in the client's chat |
 | `client_enchanting_glyphs` | — | on the client level, shelves with books feed the enchanting table (what draws glyph particles) and an empty shelf does not |
+| `client_gui_enchanting` | right-clicks an enchanting table ringed by 15 full chiseled shelves; in the **EnchantmentScreen** clicks a pickaxe and lapis into the slots and clicks the third offer button | the screen shows a level-30 offer; the pickaxe is enchanted for 3 lapis and 3 levels |
+| `client_gui_crafting` | right-clicks a crafting table; in the **CraftingScreen** clicks the ingredients into the grid and shift-clicks the result, for both recipes | the result slot shows a sticky piston, then 2 gunpowder, and both end up in the inventory |
+| `client_gui_chat` | opens the **chat box** with `/fiedler graph` and presses Enter | the report arrives and the chat box closes |
+
+The GUI tests feed the screens real input events (`MouseButtonEvent`, `KeyEvent`) at the slots' on-screen positions, so
+the screen itself decides what was clicked. An access transformer (`META-INF/accesstransformer.cfg`) exposes the screen
+origin (`leftPos`/`topPos`) for that.
 
 They are registered only on the client, each in its own batch because they share the one real player. The dedicated
 GameTest server never sees them. While writing them I found and fixed a real bug: a shooed cat used to walk straight

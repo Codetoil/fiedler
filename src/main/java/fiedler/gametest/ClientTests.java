@@ -24,6 +24,9 @@ public final class ClientTests {
         TESTS.put("client_brush_moss", 400);
         TESTS.put("client_graph_command", 200);
         TESTS.put("client_enchanting_glyphs", 200);
+        TESTS.put("client_gui_enchanting", 600);
+        TESTS.put("client_gui_crafting", 600);
+        TESTS.put("client_gui_chat", 200);
     }
 
     private static volatile @Nullable BiConsumer<String, GameTestHelper> runner;

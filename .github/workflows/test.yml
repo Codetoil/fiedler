@@ -37,7 +37,7 @@ jobs:
       # A real NeoForge 26.3 client, launched by HeadlessMc under Xvfb with an offline account (the CI use case), loads
       # Fiedler, joins a singleplayer world and runs every fiedler:* GameTest there. That includes the client tests, which
       # drive the real local player (items, right-clicks, the use key, chat commands) through client→server packets.
-      # The step fails if fewer than 15 tests are found, if any test fails, or if the game crashes.
+      # The step fails if fewer than 18 tests are found, if any test fails, or if the game crashes.
       - name: Run all Fiedler GameTests in a real NeoForge 26.3 client (MC-Runtime-Test)
         uses: headlesshq/mc-runtime-test@5.0.0
         with:
@@ -45,4 +45,4 @@ jobs:
           modloader: neoforge
           mc-runtime-test: neoforge
           java: 25
-          headlessmc-command: '--jvm "-Djava.awt.headless=true -DMcRuntimeGameTestNamespaces=fiedler -DMcRuntimeGameTestMinExpectedGameTests=15"'
+          headlessmc-command: '--jvm "-Djava.awt.headless=true -DMcRuntimeGameTestNamespaces=fiedler -DMcRuntimeGameTestMinExpectedGameTests=18"'
